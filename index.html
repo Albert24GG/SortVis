@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SortVis</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <nav class="container">
+            <p class="logo">SortVis</p>
+            <ul class="nav-elements">
+                <li><button  class="base-button">Randomize</button></li>
+                <li class="stop">
+                    <button  class="base-button"><div class="patrat"></div></button>
+                </li>
+                <li>
+                    <button  class="base-button">
+                        <img src="img/arrowright.png" class="arrow"></img>
+                        <span>Sort</span>
+                    </button>
+                </li>
+                <li class="base-bg">
+                        <label for="sorting-alg">Algorithm:</label>
+                        <select name="sorting-alg" id="sorting-alg">
+                            <option value="mamata1">Lidia Buble Sort</option>
+                            <option value="mamata2">Mergi? Sort</option>
+                            <option value="mamata3">Insarsion Sort</option>
+                        </select>
+                </li>
+                <li class="base-bg">
+                    <span >Count</span>
+                    <button class="arrow" id="button-left-count"><img src="img/arrowleft.png" width="23px"></button>
+                    <input type="number" id="count" name="count" value="5"></input>
+                    <button  class="arrow" id="button-right-count"><img src="img/arrowright.png" width="23px"></button>
+                </li>
+                <li class="base-bg">
+                    <span>Speed</span>
+                    <button class="arrow" id="button-left-speed"><img src="img/arrowleft.png" width="23px"></button>
+                    <input type="number" id="speed" name="speed" value="5"></input>
+                    <button class="arrow" id="button-right-speed"><img src="img/arrowright.png" width="23px"></button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="columns">
+        <div class="column" style="color: white; background-color: black; height: 200px;"></div>
+        <div class="column" style="color: white; background-color: red; height: 500px;"></div>
+        <div class="column" style="color: white; background-color: blue; height: 600px;"></div>
+    </div>
+    
+</body>
+<script src="js/index.js"></script>
+</html>
