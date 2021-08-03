@@ -19,6 +19,7 @@ speed.addEventListener("input",() => {
 
 button_right_count.addEventListener("click",() => {
     if(count.value<999) count.value++;
+    test();
 }); 
 
 button_left_count.addEventListener("click",() => {
