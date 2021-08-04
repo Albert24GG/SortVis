@@ -38,10 +38,8 @@ setInterval(() => {
     let unit = canvas.height / Math.max.apply(null, arr) * 3 / 4 ;
 
 
-
     for (let i = 0; i < arr.length; i++) {
         const h = arr[i];
-        //ctx.fillStyle = "#4ae2a5";
         ctx.fillStyle = color[i];
         radius = Math.min(rect_width/2,5);
         ctx.roundRect 
@@ -53,24 +51,24 @@ setInterval(() => {
             radius
         );
     }
-    //ctx.fillStyle = "#4ae2a5";
 },dtime);
 
 let swap = function (from, to, time=0){
     let smooth = (1-Math.cos(time/1000*Math.PI))/2;
-    if(time>1000 || animdur < dtime) {
+    console.log("x");
+    if(time+(dtime/(animdur/1000))>=1000 || animdur < dtime) {
+        console.log(time);
         pos[from]=from;
         pos[to]=to;
 
         let aux = arr[from];
         arr[from]=arr[to];
         arr[to]=aux;
-
         return;
     }
     pos[from] = from*(1-smooth)+to*smooth;
     pos[to] = to*(1-smooth)+from*smooth;
-    setTimeout(function() {swap(from, to, time + dtime/(animdur/1000))},dtime);
+    setTimeout(function() {swap(from, to, Math.ceil(time + dtime/(animdur/1000)))},dtime);
 
 }
 
@@ -117,17 +115,12 @@ async function bubbleSort(arr){
     for (var i = 0; i<len; i++){
       for(var j = 0; j<len-i-1; j++){
         if(!is_started) return;
-        console.log(j);
         if(arr[j]>arr[j+1]){
+            color[j] = color[j+1] = "#21c6e8";
+            swap(j,j+1);
+            await sleep(animdur);
+            color[j] = color[j+1] = "#4ae2a5";
             
-            //color[j] = color[j+1] = "#21c6e8";
-            //swap(j,j+1);
-            let aux = arr[j];
-            arr[j]=arr[j+1];
-            arr[j+1]=aux;
-            await sleep(animdur+1);
-            //color[j] = color[j+1] = "#4ae2a5";
-            console.log(j);
         }
       }
     }
