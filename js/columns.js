@@ -136,6 +136,7 @@ let changeState = function (state=false) {
     button_right_speed.disabled = state;
     button_left_speed.disabled = state;
     alg.disabled = state;
+    sort_button.disabled = state;
 }
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius=0) {

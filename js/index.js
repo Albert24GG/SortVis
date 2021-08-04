@@ -3,7 +3,7 @@ const button_left_count = document.getElementById("button-left-count");
 const button_right_speed = document.getElementById("button-right-speed");
 const button_left_speed  = document.getElementById("button-left-speed");
 const alg = document.getElementById("sorting-alg");
-
+const sort_button = document.getElementById("sort_button");
 const count = document.getElementById("count");
 const speed = document.getElementById("speed");
 
