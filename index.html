@@ -12,12 +12,12 @@
         <nav class="container">
             <p class="logo">SortVis</p>
             <ul class="nav-elements">
-                <li><button  class="base-button">Randomize</button></li>
+                <li><button onclick="randomize()" class="base-button" id="randomize">Randomize</button></li>
                 <li class="stop">
-                    <button  class="base-button"><div class="patrat"></div></button>
+                    <button  class="base-button" onclick="changeState()"><div class="patrat"></div></button>
                 </li>
                 <li>
-                    <button  class="base-button">
+                    <button  class="base-button" onclick="sort()">
                         <img src="img/arrowright.png" class="arrow"></img>
                         <span>Sort</span>
                     </button>
@@ -25,21 +25,22 @@
                 <li class="base-bg">
                         <label for="sorting-alg">Algorithm:</label>
                         <select name="sorting-alg" id="sorting-alg">
-                            <option value="mamata1">Lidia Buble Sort</option>
-                            <option value="mamata2">Mergi? Sort</option>
-                            <option value="mamata3">Insarsion Sort</option>
+                            <option value="1">Lidia Buble Sort</option>
+                            <option value="2">Mergi? Sort</option>
+                            <option value="3">Insarsion Sort</option>
                         </select>
                 </li>
                 <li class="base-bg">
                     <span >Count</span>
                     <button class="arrow" id="button-left-count"><img src="img/arrowleft.png" width="23px"></button>
-                    <input type="number" id="count" name="count" value="5"></input>
+                    <input type="number" id="count" name="count" value="20"></input>
                     <button  class="arrow" id="button-right-count"><img src="img/arrowright.png" width="23px"></button>
                 </li>
                 <li class="base-bg">
                     <span>Speed</span>
                     <button class="arrow" id="button-left-speed"><img src="img/arrowleft.png" width="23px"></button>
-                    <input type="number" id="speed" name="speed" value="5"></input>
+                    <input type="number" id="speed" name="speed" value="100"></input>
+                    <span>%</span>
                     <button class="arrow" id="button-right-speed"><img src="img/arrowright.png" width="23px"></button>
                 </li>
             </ul>

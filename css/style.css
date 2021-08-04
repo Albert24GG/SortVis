@@ -5,6 +5,7 @@ body {
     margin: 0;
     font-family: 'Poppins';
     overflow: hidden;
+    background-color: rgb(246, 246, 246);
 }
 
 .logo{
@@ -19,7 +20,7 @@ span,label {
 }
 
 .navbar {
-   background-color: #30E0E1;
+   background-color: #21c6e8;
    height: 70px;
 }
 
@@ -62,7 +63,7 @@ li {
     font-family: 'Poppins';
     color: white;
     border: none;
-    background-color: #5EFFD9;
+    background-color: #4ae2a5;
     padding-left: 15px;
     padding-right: 15px;
     display: flex;
