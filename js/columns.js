@@ -29,7 +29,7 @@ build(20);
 let fps = 48;
 let dtime = 1000/fps;
 let animdur = 500;
-
+let height;
 //---------   RENDER LOOP ---------\\
 
 setInterval(() => {
@@ -39,8 +39,13 @@ setInterval(() => {
     rect_width = Math.min(canvas.width / ( 2 * arr.length),40);
 
     let off =  (canvas.width - arr.length * (3*rect_width/2))/2;
-    let unit = canvas.height / Math.max.apply(null, arr) * 3 / 4 ;
-
+    let unit;
+    if(is_started){
+        unit = canvas.height / height * 3 / 4
+    }
+    else{
+       unit = canvas.height / Math.max.apply(null, arr) * 3 / 4 
+    }
 
     for (let i = 0; i < arr.length; i++) {
         const h = arr[i];
@@ -55,6 +60,10 @@ setInterval(() => {
             radius
         );
     }
+    ctx.font = '18px Poppins';
+    ctx.fillText("\u00a92021 All Rights Reserved.",canvas.width-285,canvas.height-40);
+    ctx.fillText("by Albert & Traian",canvas.width-250,canvas.height-20);
+    
 },dtime);
 
 //---------   SWAP FUNCTION   ---------\\
@@ -158,6 +167,7 @@ function sleep(ms) {
   //---------   SORTS   ---------\\
 
   async function sort(){
+    height = Math.max.apply(null, arr);
     animdur = 500 / (parseInt(speed.value) / 100);
     changeState(true);
     switch (alg.value ){
