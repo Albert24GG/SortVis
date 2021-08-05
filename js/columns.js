@@ -54,16 +54,16 @@ setInterval(() => {
 },dtime);
 
 let swap = function (from, to, time=0){
+    color[from] = color[to] = "#21c6e8";
     let smooth = (1-Math.cos(time/1000*Math.PI))/2;
-    console.log("x");
     if(time+(dtime/(animdur/1000))>=1000 || animdur < dtime) {
-        console.log(time);
         pos[from]=from;
         pos[to]=to;
 
         let aux = arr[from];
         arr[from]=arr[to];
         arr[to]=aux;
+        color[from] = color[to] = "#4ae2a5";
         return;
     }
     pos[from] = from*(1-smooth)+to*smooth;
@@ -98,34 +98,28 @@ let addElem = function () {
 
 let delElem = function () {
     if(is_started) return;
-    arr.pop();
+    arr.splice(arr.indexOf(Math.max.apply(null, arr),0),1);
     pos.pop();
 }
 
-function sort(){
+async function sort(){
     animdur = 500 / (parseInt(speed.value) / 100);
     changeState(true);
-    if(alg.value == 1){
-        bubbleSort(arr);
+    switch (alg.value ){
+        case "1":
+            bubbleSort(arr);
+            break;
+        case "2":
+            merge_sort(0,arr.length-1);
+            changeState(false);
+            break;
+        case "3":
+            await quicksort(0,arr.length-1);
+            changeState(false);
+            break;
     }
     
 }
-async function bubbleSort(arr){
-    var len = arr.length;
-    for (var i = 0; i<len; i++){
-      for(var j = 0; j<len-i-1; j++){
-        if(!is_started) return;
-        if(arr[j]>arr[j+1]){
-            color[j] = color[j+1] = "#21c6e8";
-            swap(j,j+1);
-            await sleep(animdur);
-            color[j] = color[j+1] = "#4ae2a5";
-            
-        }
-      }
-    }
-    changeState(false);
- }
 
 let changeState = function (state=false) {
     is_started = state;
@@ -136,7 +130,19 @@ let changeState = function (state=false) {
     button_right_speed.disabled = state;
     button_left_speed.disabled = state;
     alg.disabled = state;
-    sort_button.disabled = state;
+
+    let btns = document.getElementsByClassName("base-button");
+    let fields = document.getElementsByClassName("base-bg");
+    
+    fields_colors = ["#4ae2a5","#a6aca2"];
+    
+    for(i=0;i<btns.length;++i){
+        let val = state ? 1 : 0;
+        fields[i].style.backgroundColor = fields_colors[val];
+        if(btns[i].id=="stop") continue;
+        btns[i].disabled=state
+    }
+    
 }
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius=0) {
@@ -154,10 +160,125 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, ra
       ctx.fill();   
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+async function bubbleSort(arr){
+    var len = arr.length;
+    for (var i = 0; i<len; i++){
+      for(var j = 0; j<len-i-1; j++){
+        if(!is_started) return;
+        if(arr[j]>arr[j+1]){ 
+            swap(j,j+1);
+            await sleep(animdur);
+        }
       }
+    }
+    changeState(false);
+}
+  
 
+async function partitionare(st,dr)
+{
+    let piv = arr[dr];
+    let i = st-1,j=dr;
+    while(i<j)
+    {
+        if(!is_started) return;
+        while(i<j-1 && arr[i+1]<piv)
+            ++i;
+        while(i<j-1 && arr[j-1]>=piv)
+            --j;
+        if(i>=j-1)
+            break;
+        swap(i+1,j-1);
+        await sleep(animdur);
+    }
+    swap(dr,i+1);
+    await sleep(animdur);
+    return j;
+}
 
+async function quicksort(st, dr)
+{
+    if(st>=dr)
+    {
+        return;
+    }
+    if(!is_started) return;
+    let p = await partitionare(st,dr);//.then(console.log("hi"));
+    await quicksort(st,p-1);
+    await quicksort(p+1,dr);
+}
 
+/*async function interclasare(st, dr)
+{
+    let mij = (st+dr)/2;
+    let i=st,j=mij+1,cnt=st;
+    let aux = [];
+    while(i<=mij && j<=dr)
+    {
+        if(arr[i]<=arr[j])
+        {
+            aux[cnt++] = arr[i++];
+        }
+        else aux[cnt++] = arr[j++];
+    }
+    while(i<=mij)
+    {
+        aux[cnt++] = arr[i++];
+    }
+    while(j<=dr)
+    {
+        aux[cnt++] = arr[j++];
+    }
+    for(let k = st;k<=dr;++k)
+    {
+        console.log(aux[k]);
+        arr[k]=aux[k];
+        await sleep(animdur);
+    }
+}*/
+
+async function interclasare(st, dr)
+{
+    let mij = (st+dr)/2;
+    let i=st,j=mij+1,cnt=st;
+    let aux = [];
+    while(i<=mij && j<=dr)
+    {
+        if(arr[i]<=arr[j])
+        {
+            aux.push(arr[i++]);
+        }
+        else aux.push(arr[j++]);
+    }
+    while(i<=mij)
+    {
+        aux.push(arr[i++]);
+    }
+    while(j<=dr)
+    {
+        aux.push(arr[j++]);
+    }
+    for(let k = st;k<dr;++k)
+    {
+        console.log(aux[k-st] + " " + (k-st));
+        arr[k]=aux[k-st];
+        await sleep(animdur);
+    }
+}
+
+async function merge_sort(st, dr)
+{
+    if(st==dr)
+    {    
+        return;
+    }
+    let mij = Math.floor((st+dr)/2);
+    await merge_sort(st,mij);
+    await merge_sort(mij+1,dr);
+    await interclasare(st,dr);
+}
   

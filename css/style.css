@@ -75,6 +75,10 @@ li {
     cursor: pointer;
 }
 
+.base-button:disabled{
+    background-color: rgb(166, 172, 162);
+}
+
 .patrat {
     width: 30px;
     height: 30px;
