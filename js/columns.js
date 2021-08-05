@@ -110,7 +110,7 @@ async function sort(){
             bubbleSort(arr);
             break;
         case "2":
-            merge_sort(0,arr.length-1);
+            await merge_sort(0,arr.length-1);
             changeState(false);
             break;
         case "3":
@@ -212,61 +212,39 @@ async function quicksort(st, dr)
     await quicksort(p+1,dr);
 }
 
-/*async function interclasare(st, dr)
+async function interclasare(st, dr)
 {
-    let mij = (st+dr)/2;
+    let mij = Math.floor((st+dr)/2);
     let i=st,j=mij+1,cnt=st;
-    let aux = [];
+    var aux = [];
     while(i<=mij && j<=dr)
     {
+        if(!is_started) return;
         if(arr[i]<=arr[j])
         {
             aux[cnt++] = arr[i++];
         }
-        else aux[cnt++] = arr[j++];
+        else{
+            aux[cnt++] = arr[j++];
+        }
     }
     while(i<=mij)
     {
+        if(!is_started) return;
         aux[cnt++] = arr[i++];
     }
     while(j<=dr)
     {
+        if(!is_started) return;
         aux[cnt++] = arr[j++];
     }
     for(let k = st;k<=dr;++k)
     {
-        console.log(aux[k]);
+        if(!is_started) return;
         arr[k]=aux[k];
+        color[k] =  "#21c6e8";
         await sleep(animdur);
-    }
-}*/
-
-async function interclasare(st, dr)
-{
-    let mij = (st+dr)/2;
-    let i=st,j=mij+1,cnt=st;
-    let aux = [];
-    while(i<=mij && j<=dr)
-    {
-        if(arr[i]<=arr[j])
-        {
-            aux.push(arr[i++]);
-        }
-        else aux.push(arr[j++]);
-    }
-    while(i<=mij)
-    {
-        aux.push(arr[i++]);
-    }
-    while(j<=dr)
-    {
-        aux.push(arr[j++]);
-    }
-    for(let k = st;k<dr;++k)
-    {
-        console.log(aux[k-st] + " " + (k-st));
-        arr[k]=aux[k-st];
-        await sleep(animdur);
+        color[k] = "#4ae2a5";
     }
 }
 
@@ -277,8 +255,12 @@ async function merge_sort(st, dr)
         return;
     }
     let mij = Math.floor((st+dr)/2);
+    if(!is_started) return;
     await merge_sort(st,mij);
     await merge_sort(mij+1,dr);
     await interclasare(st,dr);
+    //arr.forEach(function(item, index, array) {
+    //    console.log(parseInt(item), index)
+    //  })
 }
   
