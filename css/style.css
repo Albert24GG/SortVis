@@ -87,7 +87,7 @@ li {
 }
 
 input[type="number"] {
-    width: 50px;
+    width: 60px;
     height: 30px;
     margin: 10px;
     margin-top: 10px;
@@ -103,4 +103,13 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+select {
+    background-color: #4ae2a5;
+    border: none;
+    color: white;
+    font-family: 'Poppins';
+    font-size: 20px;
+    border-radius: 15px;
 }

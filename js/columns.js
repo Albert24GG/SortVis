@@ -1,3 +1,5 @@
+//---------   SETUP   ---------\\
+
 const canvas = document.getElementById("columns");
 const ctx = canvas.getContext("2d");
 let arr = [];
@@ -11,7 +13,7 @@ canvas.height = window.innerHeight-70;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  }
+}
   
 
 function build(len){
@@ -27,6 +29,8 @@ build(20);
 let fps = 48;
 let dtime = 1000/fps;
 let animdur = 500;
+
+//---------   RENDER LOOP ---------\\
 
 setInterval(() => {
     canvas.width = window.innerWidth;
@@ -53,6 +57,8 @@ setInterval(() => {
     }
 },dtime);
 
+//---------   SWAP FUNCTION   ---------\\
+
 let swap = function (from, to, time=0){
     color[from] = color[to] = "#21c6e8";
     let smooth = (1-Math.cos(time/1000*Math.PI))/2;
@@ -72,8 +78,10 @@ let swap = function (from, to, time=0){
 
 }
 
-function randomize(){
-    if(is_started) return;
+//---------   BUTTON FUNCTIONS   ---------\\
+
+function randomize(notButton=false){
+    if(is_started && !notButton) return;
     for(let i=0;i<arr.length;++i){
         let rand = getRandomInt(arr.length);
         let aux = arr[i];
@@ -102,24 +110,7 @@ let delElem = function () {
     pos.pop();
 }
 
-async function sort(){
-    animdur = 500 / (parseInt(speed.value) / 100);
-    changeState(true);
-    switch (alg.value ){
-        case "1":
-            bubbleSort(arr);
-            break;
-        case "2":
-            await merge_sort(0,arr.length-1);
-            changeState(false);
-            break;
-        case "3":
-            await quicksort(0,arr.length-1);
-            changeState(false);
-            break;
-    }
-    
-}
+//---------   UTILITY FUNCTIONS   ---------\\
 
 let changeState = function (state=false) {
     is_started = state;
@@ -164,6 +155,58 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  //---------   SORTS   ---------\\
+
+  async function sort(){
+    animdur = 500 / (parseInt(speed.value) / 100);
+    changeState(true);
+    switch (alg.value ){
+        case "bubble":
+            bubbleSort(arr);
+            break;
+        case "selec":
+            await selectionSort(arr.length);
+            changeState(false);
+            break;
+        case "inser":
+            await insertionSort(arr.length);
+            changeState(false);
+            break;
+        case "merge":
+            await merge_sort(0,arr.length-1);
+            changeState(false);
+            break;
+        case "heap":
+            await heapSort();
+            changeState(false);
+            break;
+        case "quick":
+            await quicksort(0,arr.length-1);
+            changeState(false);
+            break;
+        case "count":
+            await countingSort();
+            changeState(false);
+            break;
+        case "radix":
+            await radixSort(arr.length);
+            changeState(false);
+            break;
+        case "shell":
+            await shellSort();
+            changeState(false);
+            break;
+        case "bogo":
+            await bogoSort();
+            changeState(false);
+            break;
+        
+    }
+    
+}
+
+//---------   BUBBLE SORT   ---------\\
+
 async function bubbleSort(arr){
     var len = arr.length;
     for (var i = 0; i<len; i++){
@@ -178,6 +221,7 @@ async function bubbleSort(arr){
     changeState(false);
 }
   
+//---------   QUICK SORT   ---------\\
 
 async function partitionare(st,dr)
 {
@@ -207,10 +251,12 @@ async function quicksort(st, dr)
         return;
     }
     if(!is_started) return;
-    let p = await partitionare(st,dr);//.then(console.log("hi"));
+    let p = await partitionare(st,dr);
     await quicksort(st,p-1);
     await quicksort(p+1,dr);
 }
+
+//---------   MERGE SORT   ---------\\
 
 async function interclasare(st, dr)
 {
@@ -259,8 +305,235 @@ async function merge_sort(st, dr)
     await merge_sort(st,mij);
     await merge_sort(mij+1,dr);
     await interclasare(st,dr);
-    //arr.forEach(function(item, index, array) {
-    //    console.log(parseInt(item), index)
-    //  })
 }
+
+//---------   INSERTION SORT   ---------\\
   
+async function insertionSort(n) 
+{ 
+    let i, key, j; 
+    for (i = 1; i < n; i++)
+    { 
+        if(!is_started) return;
+        key = arr[i]; 
+        color[i] =  "#21c6e8";
+        j = i - 1; 
+
+        while (j >= 0 && arr[j] > key)
+        { 
+            if(!is_started) return;
+            arr[j + 1] = arr[j]; 
+            j --; 
+        } 
+        arr[j + 1] = key; 
+        color[j+1] =  "#21c6e8";
+        await sleep(animdur);
+        color[j+1] = "#4ae2a5";
+        color[i] = "#4ae2a5";
+    } 
+} 
+
+//---------   HEAP SORT   ---------\\
+
+async function heapSort()
+    {
+        var n = arr.length;
+ 
+        for (var i = Math.floor(n / 2) - 1; i >= 0; i--)
+            await heapify(arr, n, i);
+ 
+        for (var i = n - 1; i > 0; i--) {
+            if(!is_started) return;
+            swap(0,i);
+            await sleep(animdur);
+            await heapify(arr, i, 0);
+        }
+    }
+ 
+    async function heapify(arr, n, i)
+    {
+        var largest = i; 
+        var l = 2 * i + 1; 
+        var r = 2 * i + 2; 
+ 
+        if (l < n && arr[l] > arr[largest])
+            largest = l;
+ 
+        if (r < n && arr[r] > arr[largest])
+            largest = r;
+ 
+        if (largest != i) {
+            
+            if(!is_started) return;
+            swap(i,largest);
+            await sleep(animdur);
+            await heapify(arr, n, largest);
+        }
+    }
+
+//---------   SELECTION SORT   ---------\\
+
+async function selectionSort(n)
+{
+    var i, j, min_idx;
+ 
+    for (i = 0; i < n - 1; i++)
+    {
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+            if(!is_started) return;
+ 
+        swap(min_idx, i);
+        await sleep(animdur);
+    }
+}
+
+//---------   COUNTING SORT   ---------\\
+
+async function countingSort()
+{
+    var n = arr.length;
+    var lim = n;
+    var output = Array.from({length: n}, (_, i) => 0);
+ 
+    var count = Array.from({length: 256}, (_, i) => 0);
+    var output = [];
+    var count = [];
+ 
+    for(var i=0;i<=lim;++i){
+        count[i]=0;
+    }
+    for (var i = 0; i < n; ++i)
+        ++count[arr[i]];
+        if(!is_started) return;
+
+    
+    for (var i = 1; i <= lim; ++i)
+        count[i] += count[i - 1];
+        if(!is_started) return;
+ 
+    for (var i = n - 1; i >= 0; i--) {
+        output[count[arr[i]] - 1] = arr[i];
+        --count[arr[i]];
+        if(!is_started) return;
+    }
+ 
+    for (var i = 0; i < n; ++i) {
+        color[i] =  "#21c6e8";
+        arr[i] = output[i];
+        await sleep(animdur);
+        color[i] = "#4ae2a5";
+        if(!is_started) return;
+    }
+
+}
+
+//---------   RADIX SORT   ---------\\
+
+function getMax(n)
+{
+    let mx = arr[0];
+        for (let i = 1; i < n; i++)
+            if (arr[i] > mx)
+                mx = arr[i];
+            if(!is_started) return;
+        return mx;
+}
+ 
+
+async function countSort(n,exp)
+{
+    let output = new Array(n);
+    let i;
+    let count = new Array(10);
+    for(let i=0;i<10;i++)
+        count[i]=0;
+  
+    for (i = 0; i < n; i++){
+        count[Math.floor(arr[i] / exp) % 10]++;
+        if(!is_started) return;
+    }
+  
+    for (i = 1; i < 10; i++){
+        count[i] += count[i - 1];
+        if(!is_started) return;
+    }
+  
+    for (i = n - 1; i >= 0; i--) {
+        output[count[Math.floor(arr[i] / exp) % 10] - 1] = arr[i];
+        count[Math.floor(arr[i] / exp) % 10]--;
+        if(!is_started) return;
+    }
+  
+    for (i = 0; i < n; i++){
+        color[i] =  "#21c6e8";
+        arr[i] = output[i];
+        await sleep(animdur);
+        color[i] = "#4ae2a5";
+        if(!is_started) return;
+    }
+}
+ 
+async function radixSort(n)
+{
+        let m = await getMax(n);
+        for (let exp = 1; Math.floor(m / exp) > 0; exp *= 10)
+            await countSort(n, exp);
+}
+
+//---------   SHELL SORT   ---------\\
+
+async function shellSort()
+{
+    let n = arr.length;
+  
+        for (let gap = Math.floor(n/2); gap > 0; gap = Math.floor(gap/2))
+        {
+            if(!is_started) return;
+            for (let i = gap; i < n; i += 1)
+            {
+                if(!is_started) return;
+                let temp = arr[i];
+  
+                let j;
+                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                {
+                    color[j] =  "#21c6e8";
+                    color[j-gap] =  "#21c6e8";
+                    await sleep(animdur);
+                    arr[j] = arr[j - gap];
+                    color[j] = "#4ae2a5";
+                    color[j-gap] = "#4ae2a5";
+                    if(!is_started) return;
+                }
+  
+                arr[j] = temp;
+            }
+        }
+}
+
+//---------   BOGO SORT   ---------\\
+
+let isSorted = function(n) {
+    let len = n;
+    while ( --len>= 1 ) {
+        
+        if (arr[len] < arr[len-1]) {
+            return false;
+        }
+    }
+    return true;
+}
+ 
+
+let bogoSort = async function()
+{
+    while ( !isSorted(arr.length) ){
+        await randomize(true);
+        await sleep(animdur);
+        if(!is_started) return;
+    }
+
+}
