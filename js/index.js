@@ -2,17 +2,16 @@ const button_right_count = document.getElementById("button-right-count");
 const button_left_count = document.getElementById("button-left-count");
 const button_right_speed = document.getElementById("button-right-speed");
 const button_left_speed  = document.getElementById("button-left-speed");
+
 const alg = document.getElementById("sorting-alg");
-const sort_button = document.getElementById("sort_button");
 const count = document.getElementById("count");
 const speed = document.getElementById("speed");
 
 
-count.addEventListener("input",(e) => {
-    //if(is_started) e.preventDefault();
+count.addEventListener("input",() => {
     if(count.value>999) count.value=999;
     if(count.value<0) count.value=0;
-    rebuild();
+    build();
 }); 
 
 speed.addEventListener("input",() => {
