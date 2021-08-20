@@ -11,7 +11,7 @@
     <div class="navbar">
         <nav class="container">
             <p class="logo">SortVis</p>
-            <ul class="nav-elements">
+            <ul id="top-list" class="nav-elements">
                 <li><button onclick="randomize()" class="base-button" id="randomize">Randomize</button></li>
                 <li class="stop">
                     <button  id="stop" class="base-button" onclick="changeState()"><div class="patrat"></div></button>
@@ -23,7 +23,7 @@
                     </button>
                 </li>
                 <li class="base-bg">
-                        <label for="sorting-alg">Method:</label>
+                        <label id="alg-label" for="sorting-alg">Method:</label>
                         <select name="sorting-alg" id="sorting-alg">
                             <option value="bubble">Bubble Sort</option>
                             <option value="selec">Selection Sort</option>
@@ -54,6 +54,11 @@
         </nav>
     </div>
     <canvas id="columns"></canvas>
+    <div class="navbar2"> 
+        <ul id="bottom-list" class="container">
+        </ul>
+    </div>
+    
     
 </body>
 <script src="js/index.js"></script>

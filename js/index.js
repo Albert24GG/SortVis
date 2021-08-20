@@ -1,7 +1,13 @@
+var fps = 48;
+var dtime = 1000/fps;
+
+let phoneMode = false;
+
 const button_right_count = document.getElementById("button-right-count");
 const button_left_count = document.getElementById("button-left-count");
 const button_right_speed = document.getElementById("button-right-speed");
 const button_left_speed  = document.getElementById("button-left-speed");
+const alg_label = document.getElementById("alg-label");
 
 const alg = document.getElementById("sorting-alg");
 const count = document.getElementById("count");
@@ -45,3 +51,37 @@ button_left_speed.addEventListener("click",() => {
     if(speed.value <=0) return; 
     speed.value=parseInt(speed.value)-50;
 });
+
+setInterval(() => {
+    const topParent = document.getElementById('top-list');
+    const botParent = document.getElementById('bottom-list');
+    if(window.innerWidth>=1420) {
+
+        if(!phoneMode) return;
+        phoneMode = false;
+        if(botParent.children){
+            for(let i=0;i<3;i++) {
+                topParent.appendChild(botParent.children[0]);
+            }
+        }
+        toggleVision("block");
+        return;
+    };
+
+    if(phoneMode) return;
+
+    phoneMode = true;
+    for(i=0;i<3;i++) {
+        botParent.appendChild(topParent.children[3]);
+    }
+    toggleVision("none");
+
+},dtime);
+
+let toggleVision = state => {
+    button_left_count.style.display = state;
+    button_right_count.style.display = state;
+    button_left_speed.style.display = state;
+    button_right_speed.style.display = state;
+    alg_label.style.display = state;
+}

@@ -27,9 +27,6 @@ let build = function() {
 }
 
 build();
-
-let fps = 48;
-let dtime = 1000/fps;
 let animdur = 500;
 let height;
 
@@ -37,7 +34,12 @@ let height;
 
 setInterval(() => {
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight-70;
+    if(window.innerWidth<1420) {
+        canvas.height = window.innerHeight-140;
+    } else {
+        canvas.height = window.innerHeight-70
+    }
+    
 
     let rect_width = Math.min(canvas.width / ( 2 * arr.length),40);
 
@@ -160,6 +162,10 @@ function sleep(ms) {
 async function sort() {
     height = Math.max.apply(null, arr);
     animdur = 500 / (parseInt(speed.value) / 100);
+    if(alg.value=="radix" || alg.value=="count") {
+        build();
+        randomize();
+    }
     changeState(true);
     switch (alg.value) {
         case "bubble":
@@ -191,7 +197,7 @@ async function sort() {
             changeState(false);
             break;
         case "radix":
-            await radixSort(arr.length);
+            await radixSort();
             changeState(false);
             break;
         case "shell":

@@ -9,20 +9,31 @@ body {
 }
 
 .logo{
-    font-size: 34px;
+    font-size: 1em;
     margin: 0;
     color: white;
     font-weight: bold;
 }
 
+
 span,label {
-    margin: 10px;
+    margin: 0px;
 }
 
 .navbar {
-   background-color: #21c6e8;
-   height: 70px;
+    background-color: #21c6e8;
+    height: 70px;
 }
+
+.navbar2 {
+    background-color: #21c6e8;
+    height: 70px;
+    width: 100%;
+    bottom: 0;
+    display: block;
+    position: fixed;
+}
+
 
 .container{
     display: flex;
@@ -58,7 +69,7 @@ li {
 
 .base-button, .base-bg {
     height: 50px;
-    font-size: 24px;
+    font-size: 18px;
     border-radius: 25px;
     font-family: 'Poppins';
     color: white;
@@ -68,7 +79,9 @@ li {
     padding-right: 15px;
     display: flex;
     align-items:center;
+    min-width: 40px;
 }
+
 
 .base-button:hover {
     background-color: #8bffae;
@@ -87,22 +100,22 @@ li {
 }
 
 input[type="number"] {
-    width: 60px;
+    width: 26px;
     height: 30px;
-    margin: 10px;
-    margin-top: 10px;
+    margin: 0;
+    margin-top: 2px;
     background: none;
     border:none;
     color: white;
     font-family: 'Poppins';
-    font-size: 24px;
+    font-size: 14px;
     outline:none ;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 select {
@@ -112,4 +125,28 @@ select {
     font-family: 'Poppins';
     font-size: 20px;
     border-radius: 15px;
+}
+
+#alg-label {
+    display: none;
+}
+
+@media only screen and (min-width: 1420px) {
+    .base-bg, .base-button {
+        font-size: 24px;
+        margin: 10px;
+    }
+    .navbar2{
+        display:none;
+    }
+    input[type="number"] {
+        margin: 10px;
+        font-size: 24px;
+    }
+    #alg-label {
+        display: block;
+    }
+    span {
+        margin: 10px;
+    }
 }
