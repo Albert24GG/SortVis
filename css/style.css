@@ -53,7 +53,7 @@ ul{
 }
 
 li {
-    margin-left: 20px;
+    margin-left: 8px;
 }
 
 .arrow{
@@ -100,7 +100,7 @@ li {
 }
 
 input[type="number"] {
-    width: 26px;
+    width: 40px;
     height: 30px;
     margin: 0;
     margin-top: 2px;
@@ -108,8 +108,8 @@ input[type="number"] {
     border:none;
     color: white;
     font-family: 'Poppins';
-    font-size: 14px;
-    outline:none ;
+    font-size: 18px;
+    outline: none;
 }
 
 input::-webkit-outer-spin-button,
@@ -123,11 +123,11 @@ select {
     border: none;
     color: white;
     font-family: 'Poppins';
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 15px;
 }
 
-#alg-label {
+#alg-label,#play-span {
     display: none;
 }
 
@@ -135,18 +135,48 @@ select {
     .base-bg, .base-button {
         font-size: 24px;
         margin: 10px;
+        height: 50px;
     }
     .navbar2{
         display:none;
     }
     input[type="number"] {
+        width: 50px;
         margin: 10px;
         font-size: 24px;
     }
-    #alg-label {
+    #alg-label,#play-span {
         display: block;
     }
     span {
         margin: 10px;
+    }
+    .container {
+        padding-top: 0;
+    }
+    li {
+        margin-left: 20px;
+    }
+    select {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    #speed-text, #count-text{
+        position: fixed;
+        margin-bottom: 20px;
+    }
+    #speed, #count{
+        margin: 20px 0 0 10px;
+    }
+    #percentage-sign{
+        margin-top: 20px;
+    }
+    #speed-bg.base-bg, #count-bg.base-bg {
+        padding: 0 20px 0 10px;
+    }
+    #alg-bg.base-bg {
+        padding-left: 5px;
     }
 }

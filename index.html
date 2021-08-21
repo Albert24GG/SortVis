@@ -19,10 +19,10 @@
                 <li>
                     <button  class="base-button" onclick="sort()" id="sort_button">
                         <img src="img/arrowright.png" class="arrow"></img>
-                        <span>Sort</span>
+                        <span id="play-span">Sort</span>
                     </button>
                 </li>
-                <li class="base-bg">
+                <li id="alg-bg" class="base-bg" >
                         <label id="alg-label" for="sorting-alg">Method:</label>
                         <select name="sorting-alg" id="sorting-alg">
                             <option value="bubble">Bubble Sort</option>
@@ -37,17 +37,17 @@
                             <option value="bogo">Bogo Sort</option>
                         </select>
                 </li>
-                <li class="base-bg">
-                    <span >Count</span>
+                <li class="base-bg" id="count-bg">
+                    <span id="count-text" >Count</span>
                     <button class="arrow" id="button-left-count"><img src="img/arrowleft.png" width="23px"></button>
                     <input type="number" id="count" name="count" value="20"></input>
                     <button  class="arrow" id="button-right-count"><img src="img/arrowright.png" width="23px"></button>
                 </li>
-                <li class="base-bg">
-                    <span>Speed</span>
+                <li class="base-bg" id="speed-bg">
+                    <span id="speed-text">Speed</span>
                     <button class="arrow" id="button-left-speed"><img src="img/arrowleft.png" width="23px"></button>
                     <input type="number" id="speed" name="speed" value="100"></input>
-                    <span>%</span>
+                    <span id="percentage-sign">%</span>
                     <button class="arrow" id="button-right-speed"><img src="img/arrowright.png" width="23px"></button>
                 </li>
             </ul>
